@@ -19,7 +19,8 @@ USER root
 # features (e.g., download as all possible file formats)
 ENV DEBIAN_FRONTEND noninteractive
 # AP: removed run-one
-RUN apt-get update \
+RUN apt-get install -yq apt-utils \
+ && update \
  && apt-get install -yq --no-install-recommends \
     wget \
     bzip2 \
@@ -143,6 +144,8 @@ USER $NB_UID
 # pythonocc
 ##########################################################################################################
 
+USER root
+
 RUN apt-get install -y \
     wget git build-essential libgl1-mesa-dev libfreetype6-dev libglu1-mesa-dev \
     libzmq3-dev libsqlite3-dev libicu-dev python3-dev libgl2ps-dev libfreeimage-dev \
@@ -178,4 +181,6 @@ RUN apt-get install -y \
 #############
 # pythonocc #
 #############
+
+RUN conda install --yes -c conda-forge pythonocc-core=7.4.0
 
