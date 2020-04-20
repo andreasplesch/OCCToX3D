@@ -19,7 +19,9 @@ RUN dpkg-reconfigure --frontend noninteractive tzdata
 # view3dscene  #
 ################
 
-RUN ls /home/jovyan
+COPY . /home/jovyan/
+RUN chown -R jovyan /home/jovyan
+RUN ls -l /home/jovyan
 
 ################
 # CMake 3.15.5 #
@@ -157,11 +159,4 @@ RUN ninja install
 USER jovyan
 WORKDIR /home/jovyan/work
 
-################
-# view3dscene  #
-################
 
-USER root
-WORKDIR /root
-COPY . /home/jovyan/
-RUN chown -R jovyan /home/jovyan
