@@ -26,8 +26,7 @@ RUN apt-get update \
     ca-certificates \
     sudo \
     locales \
-    fonts-liberation \
- && apt-get clean && rm -rf /var/lib/apt/lists/*
+    fonts-liberation
 
 RUN echo "en_US.UTF-8 UTF-8" > /etc/locale.gen && \
     locale-gen
@@ -128,11 +127,11 @@ RUN conda install --quiet --yes \
 
 USER root
 
-RUN apt-get install -y \
-    wget git build-essential libgl1-mesa-dev libfreetype6-dev libglu1-mesa-dev \
-    libzmq3-dev libsqlite3-dev libicu-dev python3-dev libgl2ps-dev libfreeimage-dev \
-    libtbb-dev ninja-build bison autotools-dev automake libpcre3 libpcre3-dev tcl8.5 tcl8.5-dev tk8.5 tk8.5-dev \
-    libxmu-dev libxi-dev libopenblas-dev libboost-all-dev swig libxml2-dev
+# RUN apt-get install -y --no-install-recommends \
+#   wget git build-essential libgl1-mesa-dev libfreetype6-dev libglu1-mesa-dev \
+#    libzmq3-dev libsqlite3-dev libicu-dev python3-dev libgl2ps-dev libfreeimage-dev \
+#    libtbb-dev ninja-build bison autotools-dev automake libpcre3 libpcre3-dev tcl8.5 tcl8.5-dev tk8.5 tk8.5-dev \
+#   libxmu-dev libxi-dev libopenblas-dev libboost-all-dev swig libxml2-dev
 
 RUN dpkg-reconfigure --frontend noninteractive tzdata
 
@@ -170,6 +169,8 @@ RUN conda install --yes -c conda-forge pythonocc-core=7.4.0
 # back to jupyter
 ######################################################################################################################
 
+## clean up
+RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 
 EXPOSE 8888
 
