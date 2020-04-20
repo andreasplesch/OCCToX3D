@@ -156,3 +156,12 @@ RUN ninja install
 #####################
 USER jovyan
 WORKDIR /home/jovyan/work
+
+################
+# view3dscene  #
+################
+
+USER root
+WORKDIR /root
+COPY . /home/jovyan/
+RUN chown -R jovyan /home/jovyan
