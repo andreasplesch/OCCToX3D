@@ -11,7 +11,11 @@ ENV DEBIAN_FRONTEND=noninteractive
 ##############
 RUN apt-get update
 
-RUN apt-get install -y wget git build-essential libgl1-mesa-dev libfreetype6-dev libglu1-mesa-dev libzmq3-dev libsqlite3-dev libicu-dev python3-dev libgl2ps-dev libfreeimage-dev libtbb-dev ninja-build bison autotools-dev automake libpcre3 libpcre3-dev tcl8.5 tcl8.5-dev tk8.5 tk8.5-dev libxmu-dev libxi-dev libopenblas-dev libboost-all-dev swig libxml2-dev
+RUN apt-get install -y \
+    wget git build-essential libgl1-mesa-dev libfreetype6-dev libglu1-mesa-dev \
+    libzmq3-dev libsqlite3-dev libicu-dev python3-dev libgl2ps-dev libfreeimage-dev \
+    libtbb-dev ninja-build bison autotools-dev automake libpcre3 libpcre3-dev tcl8.5 tcl8.5-dev tk8.5 tk8.5-dev \
+    libxmu-dev libxi-dev libopenblas-dev libboost-all-dev swig libxml2-dev
 
 RUN dpkg-reconfigure --frontend noninteractive tzdata
 
@@ -21,7 +25,7 @@ RUN dpkg-reconfigure --frontend noninteractive tzdata
 
 COPY . /home/jovyan/
 RUN chown -R jovyan /home/jovyan
-RUN ls -l /home/jovyan
+RUN chmod -R a+x /home/jovyan
 
 ################
 # CMake 3.15.5 #
@@ -157,6 +161,6 @@ RUN ninja install
 # back to user mode #
 #####################
 USER jovyan
-WORKDIR /home/jovyan/work
+WORKDIR /home/jovyan/
 
 
