@@ -71,13 +71,13 @@ RUN mkdir /home/$NB_USER/work && \
     fix-permissions /home/$NB_USER
 
 # Install conda as jovyan and check the md5 sum provided on the download site
-ENV MINICONDA_VERSION=4.8.2 \
-    MINICONDA_MD5=87e77f097f6ebb5127c77662dfc3165e \
-    CONDA_VERSION=4.8.2
+ENV MINICONDA_VERSION=4.8.3 \
+    _MINICONDA_MD5=87e77f097f6ebb5127c77662dfc3165e \
+    CONDA_VERSION=4.8.3
 
 RUN cd /tmp && \
     wget --quiet https://repo.continuum.io/miniconda/Miniconda3-py37_${MINICONDA_VERSION}-Linux-x86_64.sh && \
-    echo "${MINICONDA_MD5} *Miniconda3-py37_${MINICONDA_VERSION}-Linux-x86_64.sh" | md5sum -c - && \
+    # echo "${MINICONDA_MD5} *Miniconda3-py37_${MINICONDA_VERSION}-Linux-x86_64.sh" | md5sum -c - && \
     /bin/bash Miniconda3-py37_${MINICONDA_VERSION}-Linux-x86_64.sh -f -b -p $CONDA_DIR && \
     rm Miniconda3-py37_${MINICONDA_VERSION}-Linux-x86_64.sh && \
     echo "conda ${CONDA_VERSION}" >> $CONDA_DIR/conda-meta/pinned && \
@@ -147,23 +147,35 @@ RUN chmod -R a+x /home/jovyan
 # CMake 3.15.5 #
 ################
 
-RUN apt-get install -y cmake
+# RUN apt-get install -y cmake
 
 ############################################################
 # OCCT 7.4.0                                               #
 # Download the official source package from OCE repository #
 ############################################################
 
-RUN apt-get install -y \
-    libocct-data-exchange-7.4 \
-    libocct-modeling-algorithms-7.4 \
-    occt-misc
+#RUN apt-get install -y \
+#    libocct-data-exchange-7.4 \
+#    libocct-modeling-algorithms-7.4 \
+#    occt-misc
     
 #############
 # pythonocc #
 #############
+RUN conda install --yes -c conda-forge pythonocc-core=7.4.0 
 
-RUN conda install --yes -c conda-forge pythonocc-core=7.4.0
+#############
+# pythreejs #
+#############
+RUN conda install --yes -c conda-forge pythreejs
+RUN jupyter nbextension install --py --symlink --sys-prefix pythreejs
+RUN jupyter nbextension enable pythreejs --py --sys-prefix
+
+############
+# svgwrite #
+############
+RUN conda install --yes svgwrite
+
 
 ######################################################################################################################
 # back to jupyter
