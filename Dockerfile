@@ -19,7 +19,7 @@ RUN dpkg-reconfigure --frontend noninteractive tzdata
 # view3dscene  #
 ################
 
-ls /home/jovyan
+RUN ls /home/jovyan
 
 ################
 # CMake 3.15.5 #
