@@ -19,8 +19,7 @@ USER root
 # features (e.g., download as all possible file formats)
 ENV DEBIAN_FRONTEND noninteractive
 # AP: removed run-one
-RUN apt-get install -yq apt-utils \
- && update \
+RUN apt-get update \
  && apt-get install -yq --no-install-recommends \
     wget \
     bzip2 \
