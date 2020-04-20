@@ -8,7 +8,7 @@ ARG ROOT_CONTAINER=debian:experimental
 ARG BASE_CONTAINER=$ROOT_CONTAINER
 FROM $BASE_CONTAINER
 
-LABEL maintainer="Jupyter Project <jupyter@googlegroups.com>"
+LABEL maintainer="andreasplesch github.com, based on pythonocc binderhub"
 ARG NB_USER="jovyan"
 ARG NB_UID="1000"
 ARG NB_GID="100"
@@ -27,6 +27,7 @@ RUN apt-get update \
     sudo \
     locales \
     fonts-liberation \
+    cmake \
  && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 RUN echo "en_US.UTF-8 UTF-8" > /etc/locale.gen && \
@@ -137,3 +138,29 @@ RUN fix-permissions /etc/jupyter/
 
 # Switch back to jovyan to avoid accidental container runs as root
 USER $NB_UID
+
+##########################################################################################################
+# pythonocc
+##########################################################################################################
+
+RUN apt-get install -y \
+    wget git build-essential libgl1-mesa-dev libfreetype6-dev libglu1-mesa-dev \
+    libzmq3-dev libsqlite3-dev libicu-dev python3-dev libgl2ps-dev libfreeimage-dev \
+    libtbb-dev ninja-build bison autotools-dev automake libpcre3 libpcre3-dev tcl8.5 tcl8.5-dev tk8.5 tk8.5-dev \
+    libxmu-dev libxi-dev libopenblas-dev libboost-all-dev swig libxml2-dev
+
+RUN dpkg-reconfigure --frontend noninteractive tzdata
+
+################
+# view3dscene  #
+################
+
+COPY . /home/jovyan/
+RUN chown -R jovyan /home/jovyan
+RUN chmod -R a+x /home/jovyan
+
+################
+# CMake 3.15.5 #
+################
+
+RUN apt-get install -y cmake
