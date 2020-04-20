@@ -27,7 +27,6 @@ RUN apt-get update \
     sudo \
     locales \
     fonts-liberation \
-    libocct-data-exchange-7.4 \
  && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 RUN echo "en_US.UTF-8 UTF-8" > /etc/locale.gen && \
