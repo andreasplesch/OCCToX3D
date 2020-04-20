@@ -154,10 +154,10 @@ RUN chmod -R a+x /home/jovyan
 # Download the official source package from OCE repository #
 ############################################################
 
-#RUN apt-get install -y \
-#    libocct-data-exchange-7.4 \
-#    libocct-modeling-algorithms-7.4 \
-#    occt-misc
+RUN apt-get install -y \
+    libocct-data-exchange-7.4 \
+    libocct-modeling-algorithms-7.4 \
+    occt-misc
     
 #############
 # pythonocc #
