@@ -27,7 +27,7 @@ RUN apt-get update \
     sudo \
     locales \
     fonts-liberation \
-    cmake \
+    libocct-data-exchange-7.4 \
  && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 RUN echo "en_US.UTF-8 UTF-8" > /etc/locale.gen && \
@@ -164,3 +164,18 @@ RUN chmod -R a+x /home/jovyan
 ################
 
 RUN apt-get install -y cmake
+
+############################################################
+# OCCT 7.4.0                                               #
+# Download the official source package from OCE repository #
+############################################################
+
+RUN apt-get install -y \
+    libocct-data-exchange-7.4 \
+    libocct-modeling-algorithms-7.4 \
+    occt-misc
+    
+#############
+# pythonocc #
+#############
+
