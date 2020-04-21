@@ -26,7 +26,28 @@ RUN apt-get update \
     ca-certificates \
     sudo \
     locales \
-    fonts-liberation
+    fonts-liberation \
+    emacs-nox \
+    vim-tiny \
+    git \
+    inkscape \
+    jed \
+    libsm6 \
+    libxext-dev \
+    libxrender1 \
+    lmodern \
+    netcat \
+    python-dev \
+    # ---- nbconvert dependencies ----
+    texlive-xetex \
+    texlive-fonts-recommended \
+    texlive-generic-recommended \
+    # Optional dependency
+    texlive-fonts-extra \
+    # ----
+    tzdata \
+    unzip \
+    nano
 
 RUN echo "en_US.UTF-8 UTF-8" > /etc/locale.gen && \
     locale-gen
@@ -162,19 +183,25 @@ RUN apt-get install -y \
 #############
 # pythonocc #
 #############
-RUN conda install --yes -c conda-forge pythonocc-core=7.4.0 
+RUN conda install --yes -c conda-forge pythonocc-core=7.4.0 && \
+    fix-permissions $CONDA_DIR && \
+    fix-permissions /home/$NB_USER
 
 #############
 # pythreejs #
 #############
-RUN conda install --yes -c conda-forge pythreejs
+RUN conda install --yes -c conda-forge pythreejs && \
+    fix-permissions $CONDA_DIR && \
+    fix-permissions /home/$NB_USER
 RUN jupyter nbextension install --py --symlink --sys-prefix pythreejs
 RUN jupyter nbextension enable pythreejs --py --sys-prefix
 
 ############
 # svgwrite #
 ############
-RUN conda install --yes svgwrite
+RUN conda install --yes svgwrite && \
+    fix-permissions $CONDA_DIR && \
+    fix-permissions /home/$NB_USER
 
 
 ######################################################################################################################
