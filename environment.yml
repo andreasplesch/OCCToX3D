@@ -4,6 +4,9 @@ channels:
 dependencies:
   - pythonocc-core
   - svgwrite
+  - ipywidgets
+  - numpy
+  - pythreejs
   
   #- pip
   #- pip:
