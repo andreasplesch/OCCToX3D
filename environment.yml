@@ -8,4 +8,5 @@ dependencies:
   - numpy
   - pythreejs
   - pip
+  - pip:
     - x3d
