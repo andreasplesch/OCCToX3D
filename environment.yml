@@ -9,4 +9,4 @@ dependencies:
   - pythreejs
   - pip
   - pip:
-    - x3d=0.0.27
+    - x3d==0.0.27
