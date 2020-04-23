@@ -7,11 +7,5 @@ dependencies:
   - ipywidgets
   - numpy
   - pythreejs
-  
-  #- pip
-  #- pip:
-  #  - nbgitpuller
-  #  - sphinx-gallery
-  #  - pandas
-  #  - matplotlib
-    #- x3d
+  - pip
+    - x3d
