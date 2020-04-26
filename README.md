@@ -1,5 +1,6 @@
 # OCCToX3D
 https://notebooks.gesis.org/binder/v2/gh/andreasplesch/OCCtoX3D/conda2?urlpath=lab
+https://notebooks.gesis.org/binder/v2/gh/andreasplesch/OCCtoX3D/conda2
 
 convert OCC (step, iges, stl ..) to X3D
 
